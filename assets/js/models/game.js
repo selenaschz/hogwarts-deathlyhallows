@@ -4,14 +4,14 @@ class Game {
         this.canvas.width = 1301;
         this.canvas.height = 533;
         this.ctx = this.canvas.getContext("2d");
-
-        this.house = house;
         
         this.drawIntervalId = undefined;
         this.fps = 1000 / 60; //frames per second
 
+        this.house = house,
+
         this.background = new Background(this.ctx);
-        this.player = new Player( this.ctx, "Slytherin" );
+        this.player = new Player( this.ctx, house );
         this.enemies = [new Enemy( this.ctx, "dementor" )];
 
         this.enemyTypes = ["dementor", "troll", "pixies"];

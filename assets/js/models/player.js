@@ -184,7 +184,7 @@ class Player {
     castSpell() {
         if( !this.spell || !this.spell.isActive ) {
             const xSpell = this.isRight ? this.x + this.width : this.x;
-            this.spell = new Spell(this.ctx, xSpell, this.y + this.height / 2, this.isRight);
+            this.spell = new Spell(this.ctx, xSpell, this.y + this.height / 2, this.isRight, this.house);
             
             setTimeout(() => {
                 this.spell.isActive = false;

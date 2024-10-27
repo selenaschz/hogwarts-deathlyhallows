@@ -1,5 +1,5 @@
 class Spell {
-    constructor(ctx, x, y, isRight) {
+    constructor(ctx, x, y, isRight, house) {
         this.ctx = ctx;
 
         this.x = x;
@@ -8,12 +8,14 @@ class Spell {
         this.vx = 10;
         // this.vy = 0;
 
+        this.house = house;
+
         this.isRight = isRight;
 
         this.isActive = false;
 
         this.sprite = new Image();
-        this.sprite.src = "/assets/images/spell-ravenclaw.png";
+        this.sprite.src = `/assets/images/spell/spell-${house}.png`;
         
         this.sprite.frameIndex = 0;
         this.sprite.frames = 2;
@@ -26,12 +28,6 @@ class Spell {
             this.width = this.sprite.frameWidth;
         }
     }
-
-    // draw(){
-
-    //         // this.ctx.fillStyle = "yellow";
-    //         // this.ctx.fillRect(this.x, this.y, this.width, this.height);
-    // }
     
     updateAnimation() {
         this.drawCount++;
