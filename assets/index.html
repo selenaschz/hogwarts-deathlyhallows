@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Deathly Hallows</title>
+    <link rel="shortcut icon" href="/assets/images/icon.png">
+    <link rel="stylesheet" href="/assets/css/style.css">
+</head>
+<body>
+    <!-- Main Menu -->
+    <div id="main-menu" class="menu">
+        <h1> Hogwarts: The Power of the Deathly Hallows </h1>
+        <div id="menu-options">
+            <button id ="story-bt" class="bt-options"> 
+                Game story
+                <img src="/assets/images/menu/wand.png" alt="Elder Wand" class="select-icon">
+            </button>
+
+            <button id ="instructions-bt" class="bt-options"> 
+                Instructions
+                <img src="/assets/images/menu/stole.png" alt="Resurrection Stone" class="select-icon ">
+            </button>
+
+            <button id ="start-test-bt" class="bt-options"> 
+                Start House Test
+                <img src="/assets/images/menu/cloak.png" alt="Cloak of Invisibility" class="select-icon">
+            </button>
+        </div>
+    </div>
+
+    <!-- Game Story -->
+    <div id ="game-story" class="story hidden">
+        <h2>Story</h2>
+        <p> Lord Voldemort has returned, and he already possesses the <strong> Elder Wand </strong>, one of the three Deathly Hallows and the most powerful of all wands. 
+            Now, his goal is to obtain the remaining two Hallows to consolidate his power and rule the wizarding world: 
+            <strong> Resurrection Stone </strong> will allow him to summon the dead and strengthen his army, 
+            and the <strong> Invisibility Cloak </strong> will make him undetectable while he carries out his sinister plan.</p>
+
+        <p>As a brave student of Hogwarts, your task is to prevent Voldemort from obtaining these relics. You must explore Hogwarts and its surroundings and face magical enemies.</p>
+        
+        <p>Use your magical abilities to overcome the obstacles in your path. The future of the wizarding world depends on you: if you manage to acquire the relics before Voldemort, 
+            you can save the magical community from chaos. Are you ready to become the hero that the wizarding world needs?</p>
+
+        <button class="close-bt screen-style-bt"> Close </button>
+    </div>
+
+    <!--Instructions-->
+    <div id="instructions" class="instructions hidden">
+        <h2>Game Instructions</h2>
+        <ul class="list-instructions">
+            <li> Jump: 
+                <img src="/assets/images/controls/up.png" alt="up key" class="controls">
+            </li>
+            <li> Cast a Spell to Attack: 
+                <img src="/assets/images/controls/space.png" alt="space key" class="controls space">
+            </li>
+            <li> Collect Magical Objects: 
+                <img src="/assets/images/controls/down.png" alt="down key" class="controls">
+            </li>
+            <li> Move: 
+                <img src="/assets/images/controls/left.png" alt="left key" class="controls">
+                <img src="/assets/images/controls/right.png" alt="right key" class="controls">
+            </li>
+        </ul>
+        <ul class="list-instructions">
+            <li>You have a total of 3 lives.</li>
+            <li>Each time an enemy attacks you, you lose 1 life.</li>
+            <li>Poison potions and Devil Snare will kill you instantly.</li>
+        </ul>
+        <p>Stay alive and collect the 3 Deathly Hallows to win. To obtain the Elder Wand, which is in Voldemort's possession, you will have to face him in a final duel.</p>
+
+        <ul class="list-instructions">
+            <li>Chocolate Frogs allow you to recover 1 life.</li>
+            <li>The Golden Snitch grants you an extra 100 points when collected.</li>
+            <li>Defeating each enemy will earn you an extra 200 points.</li>
+        </ul>
+
+        <button class="close-bt screen-style-bt">Close</button>
+    </div>
+
+    <!--House Test-->
+    <div id ="house-test" class="house-test hidden">
+        <h2>Which Trait Defines Your Wizarding Soul?</h2>
+        <button id="bravery" class="bt-options">
+            Bravery
+            <img class="select-icon" src="/assets/images/menu/gryffindor.png" alt="gryffindor">
+        </button>
+        <button id="loyalty" class="bt-options">
+            Loyalty
+            <img class="select-icon" src="/assets/images/menu/hufflepuff.png" alt="hufflepuff">
+        </button>
+        <button id="intelligence" class="bt-options">
+            Intelligence
+            <img class="select-icon" src="/assets/images/menu/ravenclaw.png" alt="ravenclaw">
+        </button>
+        <button id="ambition" class="bt-options">
+            Ambition
+            <img class="select-icon" src="/assets/images/menu/slytherin.png" alt="slytherin">
+        </button>
+
+        <button class="close-bt screen-style-bt"> Close </button>
+    </div>
+
+    <!--Game-->
+    <div id="game-container" class="hidden">
+        <canvas id="canvas-game"></canvas>
+    </div>
+
+    
+    <script src="/assets/js/constants.js"></script>
+    <script src="/assets/js/models/background.js"></script>
+    <script src="/assets/js/models/player.js"></script>
+    <script src="/assets/js/models/enemy.js"></script>
+    <script src="/assets/js/models/levelobject/levelobject.js"></script>
+    <script src="/assets/js/models/magicitem.js"></script>
+    <script src="/assets/js/models/spell.js"></script>
+    <script src="/assets/js/models/game.js"></script>
+    <script src="/assets/js/models/intro.js"></script>
+    <script src="/assets/js/main.js"></script>
+</body>
+</html>

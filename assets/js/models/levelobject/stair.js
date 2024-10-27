@@ -1,0 +1,3 @@
+class Stair extends LevelObject {
+    
+}
