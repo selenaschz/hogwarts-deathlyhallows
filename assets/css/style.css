@@ -1,11 +1,14 @@
 @import url('https://fonts.cdnfonts.com/css/harry-potter');
 @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400..900&family=Roboto+Slab:wght@100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400..900&family=Lora:ital,wght@0,400..700;1,400..700&family=Roboto+Slab:wght@100..900&display=swap');
 
 body {
     display: flex;
     justify-content: center;
     align-items: center;
     margin: 3rem;
+    background-image: url("/assets/images/background-body.png");
+    background-size: cover; /* Cambia a cover, contain, auto según lo que necesites */
 }
 
 /*--Main Menu--*/
@@ -61,6 +64,12 @@ h1 {
     padding-left: 2rem;
 }
 
+/*Change h1 color*/
+.navy-blue {
+    color: #000937;
+    text-shadow: 2px 2px 0 #b39161;
+}
+
 /*On hover, change background and font color*/
 .bt-options:hover {
     background-color: #000937;
@@ -93,14 +102,30 @@ h1 {
 p, h2, .list-instructions, h3 {
     width: 500px;
     margin-left: 50px;
-    font: 0.8rem 'Cinzel', sans-serif;
+    font: 0.8rem 'Lora', sans-serif;
 }
 
-
 .list-instructions {
-    list-style-type: none;
     display: flex;
-    flex-direction: row;
+    justify-content: center;
+    align-items: flex-start;
+    list-style-type: none;
+    padding: 0;
+    margin-top: 7px;
+}
+
+.list-instructions li {
+    margin: 0 15px;
+    text-align : center;
+}
+
+hr {
+    border: none;
+    height: 2px;
+    background-color: #0c1336;
+    width: 50%;
+    align-self: center;
+    margin-left: 280px;
 }
 
 h2 {
@@ -119,6 +144,7 @@ h2 {
     background-color: #000937;
     font: bold 0.8rem 'Cinzel', sans-serif;
     margin-left: 50px;
+    margin-top:10px;
     color: #b39161;
     width: 100px;
     height: 30px;
@@ -129,5 +155,7 @@ h2 {
 #house-test h2{
     width: 450px;
 }
+
+
 
 

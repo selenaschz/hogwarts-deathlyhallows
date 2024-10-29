@@ -4,13 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The Deathly Hallows</title>
-    <link rel="shortcut icon" href="/assets/images/icon.png">
+    <link rel="shortcut icon" href="/assets/images/favicon.png">
     <link rel="stylesheet" href="/assets/css/style.css">
 </head>
 <body>
     <!-- Main Menu -->
     <div id="main-menu" class="menu">
-        <h1> Hogwarts: The Power of the Deathly Hallows </h1>
+        <h1 id="game-title"> Hogwarts: The Power of the Deathly Hallows </h1>
         <div id="menu-options">
             <button id ="story-bt" class="bt-options"> 
                 Game story
@@ -49,27 +49,37 @@
     <div id="instructions" class="instructions hidden">
         <h2>Game Instructions</h2>
         <ul class="list-instructions">
-            <li> Jump: 
+            <li>
                 <img src="/assets/images/controls/up.png" alt="up key" class="controls">
+                Jump: 
             </li>
-            <li> Cast a Spell to Attack: 
-                <img src="/assets/images/controls/space.png" alt="space key" class="controls space">
+            <li> 
+                <img src="/assets/images/controls/space.png" alt="space key" class="controls space"> <br>
+                Cast a Spell to Attack: 
             </li>
-            <li> Collect Magical Objects: 
-                <img src="/assets/images/controls/down.png" alt="down key" class="controls">
+            <li> 
+                <img src="/assets/images/controls/down.png" alt="down key" class="controls"> <br>
+                Collect Magical Objects: 
             </li>
-            <li> Move: 
+            <li> 
                 <img src="/assets/images/controls/left.png" alt="left key" class="controls">
                 <img src="/assets/images/controls/right.png" alt="right key" class="controls">
+                Move: 
             </li>
         </ul>
+
+        <hr>
         <ul class="list-instructions">
             <li>You have a total of 3 lives.</li>
             <li>Each time an enemy attacks you, you lose 1 life.</li>
             <li>Poison potions and Devil Snare will kill you instantly.</li>
         </ul>
-        <p>Stay alive and collect the 3 Deathly Hallows to win. To obtain the Elder Wand, which is in Voldemort's possession, you will have to face him in a final duel.</p>
 
+        <hr>
+        <p>Stay alive and collect the 3 Deathly Hallows to win. <br>
+        To obtain the Elder Wand, which is in Voldemort's possession, you will have to face him in a final duel.</p>
+        
+        <hr>
         <ul class="list-instructions">
             <li>Chocolate Frogs allow you to recover 1 life.</li>
             <li>The Golden Snitch grants you an extra 100 points when collected.</li>
@@ -111,12 +121,19 @@
     <script src="/assets/js/constants.js"></script>
     <script src="/assets/js/models/background.js"></script>
     <script src="/assets/js/models/player.js"></script>
-    <script src="/assets/js/models/enemy.js"></script>
+    <script src="/assets/js/models/enemies/enemy.js"></script>
     <script src="/assets/js/models/levelobject/levelobject.js"></script>
-    <script src="/assets/js/models/magicitem.js"></script>
+    <script src="/assets/js/models/magicitems/magicitem.js"></script>
+    <script src="/assets/js/models/magicitems/chocolatefrog.js"></script>
+    <script src="/assets/js/models/magicitems/goldensnitch.js"></script>
+    <script src="/assets/js/models/magicitems/deathlyhallows/elderwand.js"></script>
+    <script src="/assets/js/models/magicitems/deathlyhallows/invisibilitycloak.js"></script>
+    <script src="/assets/js/models/magicitems/deathlyhallows/resurrectionstone.js"></script>
     <script src="/assets/js/models/spell.js"></script>
+    <script src="/assets/js/models/levelobject/platform.js"></script>
+    <script src="/assets/js/models/levelobject/stair.js"></script>
+    <script src="/assets/js/models/damageobjects/damageobject.js"></script>
     <script src="/assets/js/models/game.js"></script>
-    <script src="/assets/js/models/intro.js"></script>
     <script src="/assets/js/main.js"></script>
 </body>
 </html>

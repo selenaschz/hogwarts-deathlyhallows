@@ -1,6 +1,9 @@
 window.addEventListener("load", () => {
+    changeColor();
+
     //-- Main Menu --
     const menu = document.getElementById("main-menu");
+    const gameTitle = document.getElementById("game-title");
 
     //--Game container--
     const gameScreen = document.getElementById("game-container");
@@ -87,7 +90,7 @@ window.addEventListener("load", () => {
         startGame(house);
     })
 
-    //Start Game
+    //Function Start Game
     function startGame(house) {
         const game = new Game("canvas-game", house);
         houseTest.classList.add("hidden");
@@ -101,6 +104,14 @@ window.addEventListener("load", () => {
         document.addEventListener("keyup", event => {
             game.onKeyEvent(event);
         })
+    }
+
+    //Function: Change h1 color
+    function changeColor() {
+        setInterval(() => {
+            gameTitle.classList.toggle("navy-blue");
+        }, 1000)
+        
     }
 
 

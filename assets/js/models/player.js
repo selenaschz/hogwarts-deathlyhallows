@@ -9,6 +9,7 @@ class Player {
 
         this.g = 1;
 
+        //Sprite:
         this.sprite = new Image();
         this.sprite.src = "/assets/images/player.png";
 
@@ -16,10 +17,7 @@ class Player {
         this.sprite.verticalFrameIndex = 0;
         this.sprite.horizontalFrames = 4;
         this.sprite.verticalFrames = 4;
-        this.drawCount = 0;
         this.sprite.frameRate = 15; 
-
-        this.isRight = true;
 
         this.sprite.onload = () => {
             this.sprite.frameWidth = Math.floor(this.sprite.width / this.sprite.horizontalFrames);
@@ -28,10 +26,18 @@ class Player {
             this.height = this.sprite.frameHeight;
         }
 
+        //Draw counter:
+        this.drawCounter = 0;
+
+        //Player direction: Left or right:
+        this.isRight = true;
+
         this.house = house;
-
         this.health = 3;
+        this.spell = null;
+        this.invulnerable = false;
 
+        //Player actions:
         this.actions = {
             jump: false,
             walk: false,
@@ -39,8 +45,6 @@ class Player {
             collect: false,
             stand: true
         }
-
-        this.spell = null;
 
     }
 
@@ -101,7 +105,7 @@ class Player {
 
 
     animate() {
-        this.drawCount++;
+        this.drawCounter++;
 
         this.sprite.verticalFrameIndex = (this.isRight) ? 0 : 2;
 
@@ -126,9 +130,9 @@ class Player {
     }
 
     checkFrameRate(horizontalIndex, horizontalFrames) {
-        if (this.drawCount > this.sprite.frameRate) {
+        if (this.drawCounter > this.sprite.frameRate) {
             this.sprite.horizontalFrameIndex++;
-            this.drawCount = 0;
+            this.drawCounter = 0;
 
             if (this.sprite.horizontalFrameIndex >= horizontalFrames) {
                 this.sprite.horizontalFrameIndex = horizontalIndex;
@@ -167,13 +171,27 @@ class Player {
             this.actions.jump = false;
         }
 
+        if ( this.y <= 0 ) {
+            this.y = 0;
+            this.vy += this.g;
+            this.y += this.vy;
+        }
+
         if( this.spell ) {
             this.spell.move();
         }
     }
 
     loseLife() {
+        if ( !this.invulnerable ) {
+            this.health--;
+            this.invulnerable = true;
 
+            //After 3 seconds, player become vulnerable:
+            setTimeout(() => {
+                this.invulnerable = false;
+            }, 1000);
+        }
     }
 
     die() {
@@ -190,6 +208,7 @@ class Player {
                 this.spell.isActive = false;
             }, 5000) 
         }
+
     }
 
     jump() {
@@ -198,6 +217,7 @@ class Player {
             this.actions.jump = true;
 
             const audio = new Audio("/assets/audio/jump.mp3")
+            audio.volume = 0.1;
             audio.play();
         }
     }
@@ -207,5 +227,26 @@ class Player {
         const collisionY = element.y <= this.y + this.height && element.y + element.height >= this.y;
         
         return collisionX && collisionY;
+    }
+    
+    collect(item) {
+        if( this.actions.collect ) {
+            if ( !item.isCollected && item instanceof ChocolateFrog && this.health < 3) {
+                // item.setHouseImg(this.house);
+                this.health++;
+                item.isCollected = true;
+            }
+        }
+    }
+
+    //Collect a Deathly Hallow
+    collectDeathlyHallow(deathlyHallow) {
+        if ( this.actions.collect ) {
+            if ( !deathlyHallow.isCollected ) {
+                deathlyHallow.isCollected = true;
+                return true;
+            }
+        }
+        return false;
     }
 }
