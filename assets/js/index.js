@@ -12,6 +12,7 @@ window.addEventListener("load", () => {
     const storyBt = document.getElementById("story-bt");
     const instructionsBt = document.getElementById("instructions-bt");
     const startTestBt = document.getElementById("start-test-bt");
+    const scoresBt = document.getElementById("scores-bt");
 
     //--Game Story--
     const story = document.getElementById("game-story");
@@ -27,11 +28,30 @@ window.addEventListener("load", () => {
     const intelligenceBt = document.getElementById("intelligence");
     const ambitionBt = document.getElementById("ambition");
 
+    //-- Scores --
+    const scores = document.getElementById("scores");
+
     //-- Event Listeners --
     //Go to the game story screen:
     storyBt.addEventListener("click", () => {
-        menu.classList.add("hidden");
-        story.classList.remove("hidden");
+        showSelectedOption(story);
+    })
+
+    //Go to the instructions screen:
+    instructionsBt.addEventListener("click", () => {
+        showSelectedOption(instructions);
+    })
+
+    //Go to the house test screen:
+    startTestBt.addEventListener("click", () => {
+        showSelectedOption(houseTest);
+    })
+
+    //Go to the Scores:
+    scoresBt.addEventListener("click", () => {
+        showSelectedOption(scores);
+        displayScores();
+
     })
 
     //Return to the main menu:
@@ -43,19 +63,6 @@ window.addEventListener("load", () => {
             menu.classList.remove("hidden");
         })
     });
-    
-
-    //Go to the instructions screen:
-    instructionsBt.addEventListener("click", () => {
-        menu.classList.add("hidden");
-        instructions.classList.remove("hidden");
-    })
-
-    //Go to the house test screen:
-    startTestBt.addEventListener("click", () => {
-        menu.classList.add("hidden");
-        houseTest.classList.remove("hidden");
-    })
 
     //Variable to store the chosen house
     let house;
@@ -63,31 +70,59 @@ window.addEventListener("load", () => {
 
     braveryBt.addEventListener("click", () => {
         house = "gryffindor";
-        houseAudio.src = `/assets/audio/houses/${house}.mp3`;
-        houseAudio.play();
+        playHouseSound(house);
         startGame(house);
     })
 
     lealtyBt.addEventListener("click", () => {
         house = "hufflepuff";
-        houseAudio.src = `/assets/audio/houses/${house}.mp3`;
-        houseAudio.play();
+        playHouseSound(house);
         startGame(house);
     })
 
     intelligenceBt.addEventListener("click", () => {
         house = "ravenclaw";
-        houseAudio.src = `/assets/audio/houses/${house}.mp3`;
-        houseAudio.play();
+        playHouseSound(house);
         startGame(house);
     })
 
     ambitionBt.addEventListener("click", () => {
         house = "slytherin";
-        houseAudio.src = `/assets/audio/houses/${house}.mp3`;
-        houseAudio.play();
+        playHouseSound(house);
         startGame(house);
     })
+
+    //Function that plays sound of the house
+    function playHouseSound(house){
+        houseAudio.src = `/assets/audio/houses/${house}.mp3`;
+        houseAudio.play();
+    }
+
+    function displayScores() {
+        const scoresList = document.getElementById("scores-list");
+
+        //Clear list:
+        scoresList.innerHTML = '';
+
+        const scoresGame = localStorage.getItem("scores") ? JSON.parse(localStorage.getItem("scores")) : [];
+    
+        if ( scoresGame.length > 0 ) {
+            scoresGame.forEach( score => {
+                const li = document.createElement("li");
+                li.textContent = `${score.name}: ${score.points} points`;
+                scoresList.appendChild(li);
+            });
+        } else {
+            const noScores = document.createElement("li");
+            noScores.textContent = "There are no scores yet.";
+            scoresList.appendChild(noScores);
+        }
+    }
+
+    function showSelectedOption(option) {
+        menu.classList.add("hidden");
+        option.classList.remove("hidden");
+    }
 
     //Function Start Game
     function startGame(house) {

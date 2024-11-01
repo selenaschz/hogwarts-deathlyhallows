@@ -21,7 +21,6 @@ class Game {
         this.enemyTypes = ["dementor", "troll", "pixies"];
 
         this.score = 0;
-        this.scores;
 
         this.level = 1;
         this.timeLevel = 60;
@@ -176,12 +175,12 @@ class Game {
             points: this.score
         };
 
-        // Obtener puntajes existentes
-        this.scores = ( this.scores ) ? JSON.parse(localStorage.getItem("scores")) : [];
-        this.scores.push(score);
+        // Get existing scores
+        const scores = localStorage.getItem("scores") ? JSON.parse(localStorage.getItem("scores")) : [];
+        scores.push(score);
 
-        // Almacenar los puntajes en localStorage
-        localStorage.setItem("scores", JSON.stringify( this.scores ));
+        // Store scores in LocalStorage
+        localStorage.setItem("scores", JSON.stringify( scores ));
     }
 
     onKeyEvent(event) {
