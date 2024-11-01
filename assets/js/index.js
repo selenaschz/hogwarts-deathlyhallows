@@ -6,7 +6,7 @@ window.addEventListener("load", () => {
     const gameTitle = document.getElementById("game-title");
 
     //--Game container--
-    const gameScreen = document.getElementById("game-container");
+    const gameScreen = document.getElementById("canvas-game");
 
     //-- Menu Options:--
     const storyBt = document.getElementById("story-bt");
@@ -66,7 +66,6 @@ window.addEventListener("load", () => {
         houseAudio.src = `/assets/audio/houses/${house}.mp3`;
         houseAudio.play();
         startGame(house);
-        
     })
 
     lealtyBt.addEventListener("click", () => {

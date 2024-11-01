@@ -113,9 +113,31 @@
     </div>
 
     <!--Game-->
-    <div id="game-container" class="hidden">
-        <canvas id="canvas-game"></canvas>
+    <div id="game-container">
+        <canvas id="canvas-game" class="hidden"></canvas>
+        <div id="open-door" class="open-door hidden">
+            <p>Choose the correct spell to open the door:</p>
+            <ul>
+                <button id="expelliarmus">Expelliarmus</button>
+                <button id="alohomora">Alohomora</button>
+                <button id="lumos">Lumos</button>
+                <button id="expecto">Expecto Patronum</button>
+            </ul>
+        </div>
+        </div>
+        <div id = "result" class="hidden">
+            <label class="ask-name" for="playername">Enter your name: </label><br>
+            <input type="text" id="playername" name="playername" placeholder="Your name..." class="playername"><br>
+            <button id="enter-bt" class="screen-style-bt enter-bt"> Enter </button>
+            <div id="end-options" class="end-options">
+                <button id="restart" class="screen-style-bt end-bt"> Play Again! </button>
+                <button id="exit" class="screen-style-bt end-bt"> Exit </button>
+        </div>
+        
     </div>
+
+    
+    
 
     
     <script src="/assets/js/constants.js"></script>
@@ -126,6 +148,7 @@
     <script src="/assets/js/models/magicitems/magicitem.js"></script>
     <script src="/assets/js/models/magicitems/chocolatefrog.js"></script>
     <script src="/assets/js/models/magicitems/goldensnitch.js"></script>
+    <script src="/assets/js/models/enemies/voldemort.js"></script>
     <script src="/assets/js/models/magicitems/deathlyhallows/elderwand.js"></script>
     <script src="/assets/js/models/magicitems/deathlyhallows/invisibilitycloak.js"></script>
     <script src="/assets/js/models/magicitems/deathlyhallows/resurrectionstone.js"></script>
@@ -133,7 +156,9 @@
     <script src="/assets/js/models/levelobject/platform.js"></script>
     <script src="/assets/js/models/levelobject/stair.js"></script>
     <script src="/assets/js/models/damageobjects/damageobject.js"></script>
+    <script src="/assets/js/models/door.js"></script>
+    <script src="/assets/js/models/finalBattle.js"></script>
     <script src="/assets/js/models/game.js"></script>
-    <script src="/assets/js/main.js"></script>
+    <script src="/assets/js/index.js"></script>
 </body>
 </html>

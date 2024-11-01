@@ -140,7 +140,7 @@ h2 {
     border-radius: 15px;
 }
 
-.screen-style-bt {
+.screen-style-bt  {
     background-color: #000937;
     font: bold 0.8rem 'Cinzel', sans-serif;
     margin-left: 50px;
@@ -156,6 +156,51 @@ h2 {
     width: 450px;
 }
 
+.enter-bt {
+    margin: 10px 0;
+}
+/*Game over*/
+
+.game-over, .win {
+    width: 1000px;
+    height: 533px;
+    padding-top: 30px;
+}
+
+.win {
+    background-image: url(/assets/images/win.png);
+}
+
+.game-over {
+    background-image: url(/assets/images/game-over.png);
+}
+
+.game-over, .playername {
+    font: bold 1.5rem 'Harry Potter', sans-serif;
+    text-align: center;
+    color:#b39161;
+    background-color: #c2ae91;
+}
+
+.playername {
+    color:#000937;
+    width: 250px;
+}
+
+.end-options {
+    display: flex;
+    justify-content: space-around;
+    bottom: 20px;
+}
+
+.end-bt {
+    margin-left:20px;
+}
+
+.screen-style-bt:hover {
+    background-color: #b39161;
+    color: #0c1336;
+}
 
 
 

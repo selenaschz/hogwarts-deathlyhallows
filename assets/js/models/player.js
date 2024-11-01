@@ -11,7 +11,7 @@ class Player {
 
         //Sprite:
         this.sprite = new Image();
-        this.sprite.src = "/assets/images/player.png";
+        this.sprite.src = "/assets/images/player/player.png";
 
         this.sprite.horizontalFrameIndex = 0;
         this.sprite.verticalFrameIndex = 0;
@@ -153,6 +153,7 @@ class Player {
         this.y, 
         this.width, 
         this.height);
+
     }
 
     move() {
@@ -184,15 +185,23 @@ class Player {
 
     loseLife() {
         if ( !this.invulnerable ) {
+            const hurt = new Audio("/assets/audio/player/hurt.mp3");
+            hurt.volume = 0.05;
+            hurt.play();
             this.health--;
             this.invulnerable = true;
+            
+            this.sprite.src = "/assets/images/player/injuredPlayer.png";
 
             //After 3 seconds, player become vulnerable:
             setTimeout(() => {
                 this.invulnerable = false;
+                this.sprite.src = "/assets/images/player/player.png";
             }, 1000);
         }
     }
+
+    
 
     die() {
 
@@ -216,7 +225,7 @@ class Player {
             this.vy -= 20;
             this.actions.jump = true;
 
-            const audio = new Audio("/assets/audio/jump.mp3")
+            const audio = new Audio("/assets/audio/player/jump.mp3");
             audio.volume = 0.1;
             audio.play();
         }
@@ -249,4 +258,6 @@ class Player {
         }
         return false;
     }
+
+
 }

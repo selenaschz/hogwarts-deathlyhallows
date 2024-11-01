@@ -1,27 +1,32 @@
 class Game {
     constructor(canvasId, house) {
         this.canvas = document.getElementById(canvasId);
-        this.canvas.width = 1301;
+        this.canvas.width = 1000;
         this.canvas.height = 533;
         this.ctx = this.canvas.getContext("2d");
         
+        //Intervals:
         this.drawIntervalId = undefined;
         this.fps = 1000 / 60; //frames per second
+        this.timeInterval = undefined;
 
         this.elapsedTime = 0;
 
         this.house = house,
 
-        this.background = new Background(this.ctx);
+        this.background = new Background(this.ctx, "background");
         this.player = new Player( this.ctx, house );
         this.enemies = [new Enemy( this.ctx, "dementor" )];
 
         this.enemyTypes = ["dementor", "troll", "pixies"];
 
         this.score = 0;
+        this.scores;
+
         this.level = 1;
         this.timeLevel = 60;
         this.elapsedTime = 0;
+        
 
         this.frog = new ChocolateFrog(this.ctx);
 
@@ -36,9 +41,16 @@ class Game {
 
         this.started = false;
 
+        this.playerName;
+
         this.music = new Audio("/assets/audio/background-theme.mp3");
         this.music.volume = 0.03;
         //PONER MUTE Y PAUSE!!!
+
+        this.voldemort = new Voldemort(this.ctx, "dementor");
+
+        //Final Battle:
+        this.finalBattle = new FinalBattle(this.ctx, this);
     }
 
     start() {
@@ -66,22 +78,116 @@ class Game {
         }
     }
 
+
+    setEndScreen(result) {
+        this.stop();
+        this.clear();
+
+        this.canvas.classList.add("hidden");
+
+        const audioResult = new Audio(`/assets/audio/${result}.mp3`);
+        audioResult.volume = 0.05;
+        audioResult.play();
+
+        const resultDiv = document.getElementById("result");
+        const menu = document.getElementById("main-menu");
+
+        resultDiv.classList.remove("hidden");
+        resultDiv.classList.add(result);
+
+        this.askForName(result, menu);
+        this.exitGame(result, menu);
+        this.restart(result);
+    }
+
+    win() {
+        this.setEndScreen("win");
+    }
+
     gameOver() {
+        this.setEndScreen("game-over");
+    }
 
+    //Input player name:
+    askForName(resultDiv, menu) {
+        const inputName = document.getElementById("playername");
+        const enterBt = document.getElementById("enter-bt");
+
+        enterBt.addEventListener("click", () => {
+                this.checkNameInput(inputName);
+                resultDiv.classList.add("hidden");
+                menu.classList.remove("hidden");
+
+         });
+    }
+
+    exitGame(resultDiv, menu) {
+        const exitBt = document.getElementById("exit");
+
+        exitBt.addEventListener("click", () => {
+            resultDiv.classList.add("hidden");
+            menu.classList.remove("hidden");
+            this.restartSettings();
+        })
+     }
+
+    restartSettings() {
         clearInterval(this.drawIntervalId);
+        clearInterval(this.timeInterval);
 
-        const audio = new Audio("/assets/audio/gameover.wav");
-        audio.volume = 0.05;
-        audio.play();
-        this.pause();
-        
-        this.ctx.fillText("Game Over", this.ctx.canvas.width / 2, this.ctx.canvas.height / 2);
+        this.drawIntervalId = null;
 
+        this.score = 0; 
+        this.level = 1; 
+        this.elapsedTime = 0; 
+        this.player = new Player (this.ctx, this.house);
+        this.enemies = [new Enemy(this.ctx, "dementor")];
+        this.music.currentTime = 0;
+
+    }
+
+    restart(resultDiv) {
+        const restartBt = document.getElementById("restart");
+        restartBt.addEventListener("click", () => {
+            resultDiv.classList.add("hidden");
+            resultDiv.classList.remove(result);
+            this.restartSettings();
+            this.start();
+
+            this.canvas.classList.remove("hidden");
+            
+        })
+    }
+
+    checkNameInput(inputName) {
+        const playerName = inputName.value;
+        if (playerName) {
+            console.log(playerName)
+            this.playerName = playerName;
+            this.addScore(this.playerName);
+            inputName.value = ""; // Clear input 
+        }
+    }
+
+    //Store the scores
+    addScore(playerName) {
+        const score = {
+            name: playerName,
+            points: this.score
+        };
+
+        // Obtener puntajes existentes
+        this.scores = ( this.scores ) ? JSON.parse(localStorage.getItem("scores")) : [];
+        this.scores.push(score);
+
+        // Almacenar los puntajes en localStorage
+        localStorage.setItem("scores", JSON.stringify( this.scores ));
     }
 
     onKeyEvent(event) {
         this.player.onKeyEvent(event);
     }
+    
 
     draw() {
         this.background.draw();
@@ -104,7 +210,9 @@ class Game {
             this.player.spell.draw();
         }
 
-        this.deathlyHallows[0].draw();
+        if ( this.timeLevel - this.elapsedTime <= 50) {
+            this.deathlyHallows[this.level - 1].draw();
+        }
 
         //Style font:
         this.ctx.font = "20px serif";
@@ -131,20 +239,10 @@ class Game {
             this.imgDeathlyHallows.width / 2,
             this.imgDeathlyHallows.height / 2
         )
-
-         this.frog.draw();
-        this.checkCollisionsEnemy();
-        this.checkCollisionsItem();
-        
-        
-    }
-    
-    end() {
-
     }
 
     clear() {
-        
+        this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
     }
 
     move() {
@@ -201,9 +299,12 @@ class Game {
                     switch ( deathlyHallow.name ) {
                         case "Resurrection Stone":
                             this.deathlyHallowsImgStatus = "one";
+                            this.levelUp();
+                            this.playFinalBattle();
                             break;
                         case "Invisibility Cloak":
                             this.deathlyHallowsImgStatus = "two";
+                            this.levelUp();
                             break;
                         case "Elder Wand":
                             this.deathlyHallowsImgStatus = "three";
@@ -214,11 +315,12 @@ class Game {
         })
     }
 
-    pause() {
+    stop() {
         this.music.pause();
         this.enemies.forEach( e => e.audio.pause());
         this.started = false;
         clearInterval(this.drawIntervalId);
+        clearInterval(this.timeInterval);
     }
 
     addEnemy() {
@@ -236,21 +338,41 @@ class Game {
     }
 
     setTimeLevel(){
-        if ( this.elapsedTime === this.timeLevel ) {
-            if ( this.level < 3) {
-                this.level++;
-                this.elapsedTime = 0;
-
-            } else {
+        if ( this.elapsedTime >= this.timeLevel ) {
                 this.gameOver();
-            }
         }
     }
 
     updateElapsedTime() {
-        this.interval = setInterval(() => {
+        this.timeInterval = setInterval(() => {
             this.elapsedTime++;
             this.setTimeLevel();
         }, 1000);
     }
+
+    
+
+    resume() {
+        this.started = true;
+        this.start();
+    }
+
+    
+    levelUp() {
+        this.level++;
+        this.elapsedTime = 0;
+    }
+
+    playFinalBattle() {
+        //Stop the main game:
+        this.stop();
+        this.clear();
+
+        //Start the final battle game
+        this.finalBattle.start();
+
+        
+    }
+    
+
 }

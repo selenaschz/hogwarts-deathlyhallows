@@ -1,5 +1,5 @@
 class Background {
-    constructor(ctx) {
+    constructor(ctx, type) {
         this.ctx = ctx;
         this.x = 0;
         this.y = 0;
@@ -10,7 +10,7 @@ class Background {
         this.vx = 1;
 
         this.bgImg = new Image();
-        this.bgImg.src = "/assets/images/background.jpg";
+        this.bgImg.src = `/assets/images/${type}.jpg`;
         this.bgImg.width = this.width;
         this.bgImg.height = this.height;
         
